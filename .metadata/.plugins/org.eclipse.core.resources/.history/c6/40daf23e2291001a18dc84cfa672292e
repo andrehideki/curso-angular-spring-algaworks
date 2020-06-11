@@ -1,0 +1,8 @@
+package com.algaworks.algamoneyapi.dto;
+
+import com.algaworks.algamoneyapi.model.Categoria;
+
+public class LancamentoEstatisticaCategoria {
+
+	private Categoria categoria;
+}

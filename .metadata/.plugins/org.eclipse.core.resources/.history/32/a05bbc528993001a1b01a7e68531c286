@@ -1,0 +1,78 @@
+package com.algaworks.algamoneyapi.service;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.algaworks.algamoneyapi.dto.LancamentoEstatisticaPessoa;
+import com.algaworks.algamoneyapi.exception.LancamentoInexistenteException;
+import com.algaworks.algamoneyapi.exception.PessoaInexistenteOuInativaException;
+import com.algaworks.algamoneyapi.model.Lancamento;
+import com.algaworks.algamoneyapi.model.Pessoa;
+import com.algaworks.algamoneyapi.repository.LancamentoRepository;
+import com.algaworks.algamoneyapi.repository.PessoaRepository;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+@Service
+public class LancamentoService {
+
+	@Autowired
+	private LancamentoRepository lancamentoRepository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
+
+	public byte[] relatorioLancamentosPorPessoa(LocalDate dataInicio, LocalDate dataFim) throws FileNotFoundException, JRException {
+		List<LancamentoEstatisticaPessoa> lancamentos = lancamentoRepository.porPessoa(dataInicio, dataFim);
+		JasperReport report = JasperCompileManager
+				.compileReport(new FileInputStream(new File("relatorios/lancamentos-por-pessoa.jrxml")));
+		
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("DT_INICIO", Date.valueOf(dataInicio));
+		parametros.put("DT_FIM", Date.valueOf(dataFim));
+		
+		JasperPrint print = JasperFillManager.fillReport(report, parametros, new JRBeanCollectionDataSource(lancamentos));
+		return JasperExportManager.exportReportToPdf(print);
+	}
+	public Lancamento gravar(@Valid Lancamento lancamento) {
+		
+		Pessoa pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
+		
+		if(pessoa == null || pessoa.isInativo())
+			throw new PessoaInexistenteOuInativaException();
+		
+		return lancamentoRepository.save(lancamento);
+	}
+	
+	public Lancamento atualizar(Long codigo, @Valid Lancamento lancamento) {
+		
+		Lancamento lancamentoSalvo = lancamentoRepository.findById(codigo)
+				.orElseThrow(() -> new LancamentoInexistenteException());
+
+		pessoaRepository.findById(lancamento.getPessoa().getCodigo())
+				.orElseThrow(() -> new PessoaInexistenteOuInativaException());
+		
+		BeanUtils.copyProperties(lancamento, lancamentoSalvo);
+		
+		return lancamentoRepository.save(lancamentoSalvo);
+	}
+	
+}

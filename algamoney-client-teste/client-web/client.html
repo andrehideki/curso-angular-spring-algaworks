@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Algamoney-web</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Algamoney-web</h1>
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Credenciais</span>
+      </div>
+      <input type="email" name="email" class="form-control" placeholder="email"/><br>
+      <input type="text" name="senha" class="form-control" placeholder="senha"/><br>
+    </div>
+
+    <br>
+    <div id="categorias">
+
+      <h5>Categorias:<h5>
+
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Nome</span>
+        </div>
+        <input type="text" name="categoria" class="form-control" placeholder="categoria"/><br>
+      </div>
+      <br>
+      <button type="button" onclick="listar_categorias()" class="btn btn-outline-primary btn-sm">
+        Listar Categorias
+      </button>
+      <button type="button" onclick="cadastrar_categoria()" class="btn btn-outline-secondary btn-sm">
+        Cadastrar Categoria
+      </button>
+      <button type="button" onclick="buscar_categoria()" class="btn btn-outline-success btn-sm">
+        Buscar Categoria
+      </button>
+    </div>
+
+    <hr>
+    <div id="resultado">
+      <h5>Resultado:</h5>
+      <div id="conteudo" style="width: 300px; margin: 4px; padding: 4px;"></div>
+    </div>
+    <script type="text/javascript" src="cliente.js"></script>
+  </div>
+</body>
+</html>

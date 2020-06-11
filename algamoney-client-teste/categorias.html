@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Categorias</title>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+	<button onclick="listar_categorias();">Listar Categorias</button>
+	<script>
+		var url = 'http://localhost:8080/categorias';
+	
+		function listar_categorias() {
+			var requisicao = new XMLHttpRequest();
+			requisicao.open('GET', url, false);
+			requisicao.send();
+			
+			document.getElementById('categorias').innerHTML = requisicao.responseText;
+		}
+	</script>
+	
+	<div id="categorias"></div>
+
+</body>
+</html>

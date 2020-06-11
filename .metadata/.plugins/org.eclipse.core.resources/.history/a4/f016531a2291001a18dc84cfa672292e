@@ -1,0 +1,5 @@
+package com.algaworks.algamoneyapi.dto;
+
+public class LancamentoEstatistica {
+
+}

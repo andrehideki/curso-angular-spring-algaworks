@@ -1,0 +1,6 @@
+package com.algaworks.algamoneyapi.dto;
+
+public class LancamentoEstatisticaPessoa {
+		
+
+}

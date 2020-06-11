@@ -1,0 +1,21 @@
+package com.algaworks.algamoneyapi.dto;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import com.algaworks.algamoneyapi.model.Lancamento.TipoLancamento;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor @AllArgsConstructor
+public class LancamentoEstatisticaDia {
+
+	private TipoLancamento tipo;
+	
+	private LocalDate dia;
+	
+	private BigDecimal total;
+}

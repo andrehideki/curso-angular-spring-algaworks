@@ -1,0 +1,1 @@
+java -jar /home/hideki/Documentos/Algaworks/curso-angular-spring-rest/algamoney-api/target/algamoney-api-1.0.0-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password=Mundo@nimal825 --algamoney.origem-permitida=http://localhost:4200

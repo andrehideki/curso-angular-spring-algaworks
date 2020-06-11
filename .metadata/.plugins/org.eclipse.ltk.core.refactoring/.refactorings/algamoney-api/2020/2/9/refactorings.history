@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;senhaCriptografada&apos; in &apos;com.algaworks.algamoneyapi.security.util.GeradorSenha.main(...)&apos; to &apos;senhaEncodada&apos;&#x0D;&#x0A;- Original project: &apos;algamoney-api&apos;&#x0D;&#x0A;- Original element: &apos;com.algaworks.algamoneyapi.security.util.GeradorSenha.main(String[]).senhaCriptografada&apos;&#x0D;&#x0A;- Renamed element: &apos;senhaCriptografada&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;senhaCriptografada&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;com.algaworks.algamoneyapi.security.util{GeradorSenha.java[GeradorSenha~main~\[QString;@senhaCriptografada!294!343!301!318!QString;!0!false" name="senhaEncodada" references="true" stamp="1582664672706" version="1.0"/>
+</session>

@@ -1,0 +1,75 @@
+package com.algaworks.algamoneyapi.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "Lancamento")
+public class Lancamento {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long codigo;
+	
+	@NotEmpty
+	private String descricao;
+	
+	@Column(name = "DATA_VENCIMENTO")
+	@NotNull
+	private LocalDate dataVencimento;
+	
+	@Column(name = "DATA_PAGAMENTO")
+	private LocalDate dataPagamento;
+	
+	@NotNull
+	@Positive
+	private BigDecimal valor;
+	
+	private String observacao;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "codigo_pessoa")
+	private Pessoa pessoa;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "codigo_categoria")
+	private Categoria categoria;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private TipoLancamento tipo;
+	
+	public static enum TipoLancamento {
+		RECEITA("Receita"), 
+		DESPESA("Despesa");
+		
+		public final String descricao;
+		
+		TipoLancamento(String descricao) {
+			this.descricao = descricao;
+		}
+	}
+}
